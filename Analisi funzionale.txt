@@ -1,0 +1,7 @@
+Stima tempi
+
+    1. Caricamento e Esplorazione Iniziale: 20 min
+    2. Pulizia dei Dati: 20 min
+    3. Analisi Esplorativa dei Dati (EDA): 30 min
+    4. Preparazione dei Dati per la Modellazione: 15 min
+    5. Analisi Statistica e Predittiva: 40 min
