@@ -63,7 +63,7 @@ def elimina_mancanti(df): # Rimuove le righe con valori mancanti
     print(df)
     return df
 
-def correggi_anomalie(df):
+def correggi_anomalie(df): #trasformare tipo dato
     # Correggere anomalie nei dati(valori negativi e 0)
     df = df[df['Età'] >= 0]
     df = df[df['Tariffa_Mensile'] > 0]
@@ -72,9 +72,39 @@ def correggi_anomalie(df):
 
 #3)Analisi Esplorativa dei Dati (EDA)
 
+#Costo_per_GB (tariffa mensile divisa per i dati consumati)
+def aggiungo_colonna(df):
+    df['Costo_per_GB'] = df['Tariffa_Mensile']/df['Dati_Consumati']
+    print(df)
+    return df
 
+#Utilizzare groupby() per esplorare la relazione tra Età, Durata_Abbonamento , Tariffa_Mensile e la Churn
+def raggruppare_per_età(df):
+    print("\nClienti per età")
+    print(df.groupby('Età')['ID_Cliente'].count())
 
+def raggruppare_per_durata_abbonamento(df):
+    print("\nClienti per durata abbonamento")
+    print(df.groupby('Durata_Abbonamento')['ID_Cliente'].count())
 
+def raggruppare_per_tariffa_mensile(df):
+    print("\nClienti per tariffa mensile")
+    print(df.groupby('Tariffa_Mensile')['ID_Cliente'].count())
+
+def raggruppare_per_Churn(df):
+    print("\nClienti per Churn")
+    print(df.groupby('Churn')['ID_Cliente'].count())
+
+# Utilizzare metodi come corr() per identificare possibili correlazioni tra le variabili
+def correlazione(df):
+    # Convertire 'Churn' in formato numerico
+    df['Churn'] = df['Churn'].apply(lambda x: 1 if x == 'Sì' else 0)
+
+    # Calcolare la matrice di correlazione
+    correlation_matrix = df.corr()
+
+    print("\nMatrice di correlazione:")
+    print(correlation_matrix)
 
 
 
@@ -85,12 +115,14 @@ def correggi_anomalie(df):
 #test
 file_path = 'Lezione 18 luglio/clienti.csv'
 df = carica_dati(file_path)
-print(df)
 #info(df)
 #descrizione(df)
 #distribuzione(df)
 #valori_mancanti(df)
 
-#df = pulisci_dati(df)
-#df = correggi_anomalie(df)
+#elimina_mancanti(df)
+#correggi_anomalie(df)
+aggiungo_colonna(df) 
+#raggruppare_per_età(df)
+correlazione(df)
 
