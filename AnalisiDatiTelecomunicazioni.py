@@ -15,13 +15,28 @@ Churn: Se il cliente ha lasciato la compagnia (Sì/No)
 1)Caricamento e Esplorazione Iniziale:
 Caricare i dati da un file CSV.
 Utilizzare info(), describe(), e value_counts() per esaminare la distribuzione dei dati e identificare 
-colonne con valori mancanti. 
+colonne con valori mancanti.
+
+2)Pulizia dei Dati:
+Gestire i valori mancanti in modo appropriato, considerando l'imputazione o la rimozione delle righe.
+Verificare e correggere eventuali anomalie nei dati (es. età negative, tariffe mensili irrealistiche).
+
+3)Analisi Esplorativa dei Dati (EDA):
+Creare nuove colonne che potrebbero essere utili, come Costo_per_GB (tariffa mensile divisa per i dati consumati).
+Utilizzare groupby() per esplorare la relazione tra Età, Durata_Abonnamento, Tariffa_Mensile e la Churn.
+Utilizzare metodi come corr() per identificare possibili correlazioni tra le variabili.
+
+4)Preparazione dei Dati per la Modellazione:
+Convertire la colonna Churn in formato numerico (0 per "No", 1 per "Sì").
+Normalizzare le colonne numeriche usando numpy per prepararle per la modellazione.
 """
 import pandas as pd
 
+#1)Caricamento e Esplorazione Iniziale
 
 def carica_dati(file_path):
     df = pd.read_csv(file_path)
+    print(df)
     return df
 
 def info(df):
@@ -32,25 +47,36 @@ def descrizione(df):
     print("\nDescrizione:")
     print(df.describe())
 
-
 def distribuzione(df):
-    print"\nDistribuzione dei valori 
-    print(df[''].value_counts())
+    print("\nDistribuzione dei valori:")
+    print(df.value_counts())
 
 def valori_mancanti(df):
-    print("\nValori mancanti per colonna:")
+    print("\nValori mancanti:")
     print(df.isnull())
 
-def pulisci_dati(df):
-    # Gestire i valori mancanti
-    df = df.dropna()  # Rimuove le righe con valori mancanti
+
+#2)Pulizia dei Dati:
+
+def elimina_mancanti(df): # Rimuove le righe con valori mancanti
+    df = df.dropna() 
+    print(df)
     return df
 
 def correggi_anomalie(df):
     # Correggere anomalie nei dati(valori negativi e 0)
     df = df[df['Età'] >= 0]
     df = df[df['Tariffa_Mensile'] > 0]
+    print(df)
     return df
+
+#3)Analisi Esplorativa dei Dati (EDA)
+
+
+
+
+
+
 
 
 
@@ -60,6 +86,11 @@ def correggi_anomalie(df):
 file_path = 'Lezione 18 luglio/clienti.csv'
 df = carica_dati(file_path)
 print(df)
+#info(df)
+#descrizione(df)
+#distribuzione(df)
+#valori_mancanti(df)
+
 #df = pulisci_dati(df)
 #df = correggi_anomalie(df)
 
