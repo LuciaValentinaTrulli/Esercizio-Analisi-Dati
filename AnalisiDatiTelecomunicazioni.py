@@ -107,6 +107,24 @@ def correlazione(df):
     print(correlation_matrix)
 
 
+#4)Preparazione dei Dati per la Modellazione:
+
+# Convertire 'Churn' in formato numerico
+def converti_Churn(df):
+    df['Churn'] = df['Churn'].apply(lambda x: 1 if x == 'Sì' else 0)
+    print(df)
+    return df
+
+# Normalizzare le colonne numeriche
+def normalizzazione(df):
+    colonne_numeriche = ['Età', 'Durata_Abonnamento', 'Tariffa_Mensile', 'Dati_Consumati', 'Servizio_Clienti_Contatti', 'Costo_per_GB']
+    df[colonne_numeriche] = (df[colonne_numeriche] - df[colonne_numeriche].mean()) / df[colonne_numeriche].std()
+    print("\nDati normalizzati:")
+    print(df)
+
+
+
+
 
 
 
@@ -125,4 +143,5 @@ df = carica_dati(file_path)
 aggiungo_colonna(df) 
 #raggruppare_per_età(df)
 correlazione(df)
-
+converti_Churn(df)
+normalizzazione(df)
